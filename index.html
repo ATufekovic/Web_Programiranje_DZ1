@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.0/css/all.css"
+        integrity="sha384-lKuwvrZot6UHsBSfcMvOkWwlCMgc0TaWr+30HWe3a4ltaBwTZhyTEggF5tJv8tbt" crossorigin="anonymous">
+</head>
+
+<body>
+    <header class="jumbotron">
+        <h1 class="display-2">Title</h1>
+    </header>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Register</h2>
+                    </div>
+                    <div class="card-body">
+                        <form>
+
+                            <div class="form-group">
+                                <label for="user_name">User name:</label>
+                                <input class="form-control" type="text" name="user_name" id="user_name">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_email">E-mail:</label>
+                                <input class="form-control" type="text" name="user_email" id="user_email">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="user_password">Password:</label>
+                                <div class="input-group">
+                                    <input class="form-control pwd" type="password" name="user_password"
+                                        id="user_password">
+                                </div>
+                            </div>
+
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox"
+                                        onclick="togglePasswordVisibility()">Show password
+                                </label>
+                                <script>
+                                    function togglePasswordVisibility() {
+                                        var x = document.getElementById("user_password");
+                                        if (x.type == "password") {
+                                            x.type = "text";
+                                        }
+                                        else {
+                                            x.type = "password";
+                                        }
+                                    }
+                                </script>
+                            </div>
+                        </form>
+                        <button class="btn btn-primary mt-2" onclick="sendDataToPHP()" id="register">Register</button>
+                        <script>/*Script to format data and send to php*/
+                            function sendDataToPHP() {
+                                $(document).ready(function () {
+                                    name = document.getElementById("user_name").value;
+                                    email = document.getElementById("user_email").value;
+                                    password = document.getElementById("user_password").value;
+                                    console.log(name);
+                                    console.log(email);
+                                    console.log(password);
+                                    obj = { "user_name": name, "user_email": email, "user_password": password };
+                                    $.ajax({
+                                        method: "POST",
+                                        url: "register.php",
+                                        data: obj,
+                                        success: function (result) {
+                                            console.log(result);
+                                            alert(result);
+                                        }
+                                    });
+                                });
+                            }
+                        </script>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
